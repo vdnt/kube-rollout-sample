@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bookstore
+  labels:
+    name: bookstore
+    istio-injection: enabled

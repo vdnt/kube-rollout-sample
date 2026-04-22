@@ -1,0 +1,6 @@
+replicaCount: 2
+image:
+  repository: bookstore/api
+  tag: '20260401120000-abcdef1234'
+environment:
+  APP_NAME: bookstore-api

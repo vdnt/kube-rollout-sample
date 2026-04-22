@@ -1,0 +1,5 @@
+secrets:
+  enabled: true
+  vault:
+    paths:
+      secretNamespace: bookstore/sandbox2

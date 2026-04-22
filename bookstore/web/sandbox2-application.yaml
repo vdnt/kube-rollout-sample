@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bookstore-web-sandbox2
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/manifest-generate-paths: ..
+  labels:
+    app: bookstore-web
+    service: bookstore
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: bookstore
+    name: sandbox2
+  project: bookstore-sandbox
+  source:
+    repoURL: https://github.com/vdnt/kube-rollout-sample.git
+    targetRevision: HEAD
+    path: "bookstore/web/"
+    plugin:
+      name: helm-resolver-common
+      env:
+        - name: CHART_NAME
+          value: common-rollout
+        - name: CHART_VERSION
+          value: 0.91.0
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true

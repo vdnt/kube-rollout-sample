@@ -1,0 +1,40 @@
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: bookstore:listresources
+  namespace: bookstore
+rules:
+- apiGroups: [""]
+  resources:
+    - pods
+  verbs:
+    - list
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: bookstore-namespace-admin
+  namespace: bookstore
+subjects:
+- kind: Group
+  name: "bookstore"
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: bookstore-list-resources
+  namespace: bookstore
+subjects:
+- kind: ServiceAccount
+  name: bookstore
+  namespace: bookstore
+roleRef:
+  kind: Role
+  name: bookstore:listresources
+  apiGroup: rbac.authorization.k8s.io

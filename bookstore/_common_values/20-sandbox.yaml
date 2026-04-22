@@ -1,0 +1,9 @@
+istio:
+  peerAuthentication:
+    enabled: true
+    mtlsMode: STRICT
+
+strategy:
+  canary:
+    maxSurge: 1
+    maxUnavailable: 1

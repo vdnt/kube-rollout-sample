@@ -1,0 +1,4 @@
+replicaCount: 3
+image:
+  repository: bookstore/app
+  tag: '20260401120000-abcdef1234'

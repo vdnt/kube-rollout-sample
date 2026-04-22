@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-memory-limit-range
+  namespace: bookstore
+spec:
+  limits:
+  - default:
+      cpu: 2
+      memory: 128Mi
+    defaultRequest:
+      cpu: 1m
+      memory: 128Mi
+    max:
+      cpu: 10
+      memory: 4Gi
+    min:
+      cpu: 1m
+      memory: 16Mi
+    type: Container
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-resources
+  namespace: bookstore
+spec:
+  hard:
+    requests.cpu: "6"
+    requests.memory: 6Gi
+    limits.cpu: "20"
+    limits.memory: 16Gi
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: object-counts
+  namespace: bookstore
+spec:
+  hard:
+    configmaps: "10"
+    count/jobs.batch: "20"
+    persistentvolumeclaims: "2"
+    pods: "25"
+    secrets: "10"
+    services: "10"
